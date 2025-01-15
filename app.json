@@ -9,13 +9,23 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ehymowitz.bluetoothclassiconnection"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.BLUETOOTH_CONNECT",
+        "android.permission.BLUETOOTH_SCAN",
+        "android.permission.BLUETOOTH_ADVERTISE"
+      ],
+      "package": "com.ehymowitz.bluetoothclassiconnection"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +41,13 @@
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "with-rn-bluetooth-classic",
+        {
+          "peripheralUsageDescription": "Allow this app to access Bluetooth peripherals",
+          "alwaysUsageDescription": "Allow this app to use Bluetooth"
         }
       ]
     ],
