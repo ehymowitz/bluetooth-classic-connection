@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bluetooth-classic-onnection",
-    "slug": "bluetooth-classic-onnection",
+    "name": "bluetooth-classic-connection",
+    "slug": "bluetooth-classic-connection",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
