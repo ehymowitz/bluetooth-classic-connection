@@ -9,15 +9,18 @@ import RNBluetoothClassic, {
 // Example repo
 // https://github.com/kenjdavidson/react-native-bluetooth-classic-apps/blob/main/BluetoothClassicExample/src/connection/ConnectionScreen.js
 
+// DOCS
+// https://kenjdavidson.com/react-native-bluetooth-classic/android/
+
 export default function HomeScreen() {
   const [devices, setDevices] = useState<BluetoothDevice[]>([]);
   const fetchBondedDevices = async () => {
     try {
       const isAvail = await RNBluetoothClassic.isBluetoothAvailable();
       console.log(isAvail);
-      // const bondedDevices = await RNBluetoothClassic.getBondedDevices();
-      // console.log(bondedDevices);
-      // setDevices(bondedDevices);
+      const bondedDevices = await RNBluetoothClassic.getBondedDevices();
+      console.log(bondedDevices);
+      setDevices(bondedDevices);
     } catch (error) {
       console.error("Error fetching bonded devices:", error);
     }
