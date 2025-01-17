@@ -1,6 +1,10 @@
-import { Button, FlatList, StyleSheet, Text } from "react-native";
+import { Button, FlatList, StyleSheet, Text, Platform } from "react-native";
 
 import { ThemedView } from "@/components/ThemedView";
+import {
+  requestAccessFineLocationPermissionAsync,
+  requestBlueToothConnectPermissionAsync,
+} from "@/lib/androidPermissions";
 import { useState } from "react";
 import RNBluetoothClassic, {
   BluetoothDevice,
@@ -16,10 +20,13 @@ export default function HomeScreen() {
   const [devices, setDevices] = useState<BluetoothDevice[]>([]);
   const fetchBondedDevices = async () => {
     try {
-      const isAvail = await RNBluetoothClassic.isBluetoothAvailable();
-      console.log(isAvail);
+      if (Platform.OS === "android") {
+        await requestAccessFineLocationPermissionAsync();
+        await requestBlueToothConnectPermissionAsync();
+      }
+
       const bondedDevices = await RNBluetoothClassic.getBondedDevices();
-      console.log(bondedDevices);
+      console.log(JSON.stringify(bondedDevices, undefined, 2));
       setDevices(bondedDevices);
     } catch (error) {
       console.error("Error fetching bonded devices:", error);
@@ -30,7 +37,7 @@ export default function HomeScreen() {
     <ThemedView style={styles.container}>
       <Text style={styles.title}>Pair Devices</Text>
       <Button title="Fetch Bonded Devices" onPress={fetchBondedDevices} />
-      {/* <FlatList
+      <FlatList
         data={devices}
         keyExtractor={(item) => item.address}
         renderItem={({ item }) => (
@@ -38,7 +45,7 @@ export default function HomeScreen() {
             {item.name} - {item.address}
           </Text>
         )}
-      /> */}
+      />
     </ThemedView>
   );
 }
